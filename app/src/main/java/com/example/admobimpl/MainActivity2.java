@@ -6,6 +6,7 @@ import android.view.Display;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.ads.*;
 
@@ -112,6 +113,7 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         showInterstitialForCount();
+        Toast.makeText(this, "TIME_BACKPRESS="+Constant.TIME_BACKPRESS+" MAX_BACKPRESS="+Constant.MAX_BACKPRESS, Toast.LENGTH_SHORT).show();
         super.onBackPressed();
     }
 }
