@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +19,7 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 
 public class MainActivity extends AppCompatActivity {
     // Layout Contain The Banner
-    private LinearLayout container_banner;
+    private FrameLayout adContainerView;
 
     private Button btn_Interstitial;
     private Button btn_secondActivity;
@@ -37,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
         setupInterstitial();
         setupRewardAds();
 
-        btn_Interstitial=findViewById(R.id.btn_Interstitial);
-        btn_secondActivity=findViewById(R.id.btn_secondActivity);
-        btn_showreward=findViewById(R.id.btn_showreward);
+        btn_Interstitial = findViewById(R.id.btn_Interstitial);
+        btn_secondActivity = findViewById(R.id.btn_secondActivity);
+        btn_showreward = findViewById(R.id.btn_showreward);
 
         // CLICK TO SHOW INTERSTITIAL
         btn_Interstitial.setOnClickListener(v -> {
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         // CLICK GO TO MAINACTIVITY2
         btn_secondActivity.setOnClickListener(v -> {
-            Intent i=new Intent(this,MainActivity2.class);
+            Intent i = new Intent(this, MainActivity2.class);
             startActivity(i);
         });
 
@@ -95,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupRewardAds() {
+        Log.d("rewardedAd", "rewardedAd: setupRewardAds___");
+
         rewardedAd = new RewardedAd(this,
                 Constant.RWD);
 
@@ -119,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showInterstitial() {
-        if(mInterstitialAd.isLoaded()){
+        if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         }
     }
@@ -141,13 +144,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setupBanner() {
-        container_banner = findViewById(R.id.container_banner);
+        adContainerView = findViewById(R.id.adContainerView);
         // if adview not exist not the correct layout
 
         mAdView = new AdView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        container_banner.removeAllViews();
-        container_banner.addView(mAdView, params);
+        adContainerView.removeAllViews();
+        adContainerView.addView(mAdView, params);
         mAdView.setAdUnitId(Constant.BN);
 
 

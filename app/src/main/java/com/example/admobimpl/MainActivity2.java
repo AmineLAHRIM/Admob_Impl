@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.ads.*;
@@ -11,7 +12,7 @@ import com.google.android.gms.ads.*;
 public class MainActivity2 extends AppCompatActivity {
 
     private AdView mAdView;
-    private LinearLayout container_banner;
+    private FrameLayout adContainerView;
     private Button btn_Interstitial;
     private InterstitialAd mInterstitialAd;
 
@@ -23,7 +24,7 @@ public class MainActivity2 extends AppCompatActivity {
         setupBanner();
         setupInterstitial();
 
-        btn_Interstitial=findViewById(R.id.btn_Interstitial);
+        btn_Interstitial = findViewById(R.id.btn_Interstitial);
 
         btn_Interstitial.setOnClickListener(v -> {
             showInterstitial();
@@ -31,24 +32,22 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     private void showInterstitial() {
-        if(mInterstitialAd.isLoaded()){
+        if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         }
     }
 
-    // called when you enter to MainActivity2 and exit TIME_COUNT times
+    // called when you enter to MainActivity2 and exit MAX_BACKPRESS times [4 backPress then mInterstitialAd.show()]
     private void showInterstitialForCount() {
-        final int TIME_COUNT=4;
         // initilize for 0
         Constant.TIME_BACKPRESS++;
 
-        if(Constant.TIME_BACKPRESS>=TIME_COUNT){
-            if(mInterstitialAd.isLoaded()){
-                Constant.TIME_BACKPRESS=0;
+        if (Constant.TIME_BACKPRESS >= Constant.MAX_BACKPRESS) {
+            if (mInterstitialAd.isLoaded()) {
+                Constant.TIME_BACKPRESS = 0;
                 mInterstitialAd.show();
             }
         }
-
     }
 
     private void setupInterstitial() {
@@ -67,13 +66,13 @@ public class MainActivity2 extends AppCompatActivity {
 
 
     private void setupBanner() {
-        container_banner = findViewById(R.id.container_banner);
+        adContainerView = findViewById(R.id.adContainerView);
         // if adview not exist not the correct layout
 
         mAdView = new AdView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        container_banner.removeAllViews();
-        container_banner.addView(mAdView, params);
+        adContainerView.removeAllViews();
+        adContainerView.addView(mAdView, params);
         mAdView.setAdUnitId(Constant.BN);
 
 

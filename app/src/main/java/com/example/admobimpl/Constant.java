@@ -9,5 +9,6 @@ class Constant {
     public static String PUB = "ca-app-pub-3940256099942544";
 
     public static int TIME_BACKPRESS = 0;
+    public static int MAX_BACKPRESS = 4;
 
 }
